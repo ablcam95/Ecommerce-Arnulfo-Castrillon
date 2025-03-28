@@ -1,6 +1,6 @@
 package com.acsolutions.arnulfocastrillon.acsolutions.infrastructure.entity;
 
-import com.acsolutions.arnulfocastrillon.acsolutions.domain.model.OrderProduct;
+
 import com.acsolutions.arnulfocastrillon.acsolutions.domain.model.OrderState;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table
+@Table(name = "orders")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,7 +22,7 @@ public class OrderEntity {
     private Integer id;
     @CreationTimestamp
     private LocalDateTime dateCreated;
-    @Enumerated(value = EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     private OrderState orderState;
     @ManyToOne
     private UserEntity userEntity;
