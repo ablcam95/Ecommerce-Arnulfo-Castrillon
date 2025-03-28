@@ -1,9 +1,11 @@
 package com.acsolutions.arnulfocastrillon.acsolutions.infrastructure.config;
 
 import com.acsolutions.arnulfocastrillon.acsolutions.application.CategoryService;
+import com.acsolutions.arnulfocastrillon.acsolutions.application.OrderService;
 import com.acsolutions.arnulfocastrillon.acsolutions.application.ProductService;
 import com.acsolutions.arnulfocastrillon.acsolutions.application.UserService;
 import com.acsolutions.arnulfocastrillon.acsolutions.domain.port.ICategoryRepository;
+import com.acsolutions.arnulfocastrillon.acsolutions.domain.port.IOrderRepository;
 import com.acsolutions.arnulfocastrillon.acsolutions.domain.port.IProductRepository;
 import com.acsolutions.arnulfocastrillon.acsolutions.domain.port.IUserRepository;
 import org.springframework.context.annotation.Bean;
@@ -24,5 +26,10 @@ public class BeanConfiguration {
     @Bean
     public ProductService productService(IProductRepository iProductRepository){
         return new ProductService (iProductRepository);
+    }
+
+    @Bean
+    public OrderService orderService(IOrderRepository iOrderRepository){
+        return new OrderService(iOrderRepository);
     }
 }

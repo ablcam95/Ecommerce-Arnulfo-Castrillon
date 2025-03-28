@@ -8,6 +8,8 @@ import com.acsolutions.arnulfocastrillon.acsolutions.infrastructure.entity.UserE
 import com.acsolutions.arnulfocastrillon.acsolutions.infrastructure.mapper.IOrderMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class OrderCrudRepositoryImpl implements IOrderRepository {
 
@@ -37,7 +39,7 @@ public class OrderCrudRepositoryImpl implements IOrderRepository {
 
     @Override
     public Iterable<Order> findAll() {
-        return orderMapper.toOrderList(iOrderCrudRepository.findAll());
+        return orderMapper.toOrderList((List<OrderEntity>) iOrderCrudRepository.findAll());
     }
 
     @Override
