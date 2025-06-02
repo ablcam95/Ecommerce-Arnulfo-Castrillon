@@ -18,14 +18,19 @@ import java.time.LocalDateTime;
 public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(updatable = false)
     private Integer id;
     private String name;
     private String code;
+    private String capacidad;
+    private String tipo;
+    private Boolean jacuzzi;
     private String description;
     private String urlImage;
     private BigDecimal price;
     private Boolean activo;
     @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime dateCreated;
     @UpdateTimestamp
     private LocalDateTime dateUpdated;

@@ -15,8 +15,8 @@ public interface UserMapper {
             {
                     @Mapping(source = "id" , target = "id"),
                     @Mapping(source = "username" , target = "username"),
-                    @Mapping(source = "firstnameName" , target = "firstnameName"),
-                    @Mapping(source = "lastnameName" , target = "lastnameName"),
+                    @Mapping(source = "firstName" , target = "firstName"),
+                    @Mapping(source = "lastName" , target = "lastName"),
                     @Mapping(source = "email" , target = "email"),
                     @Mapping(source = "address" , target = "address"),
                     @Mapping(source = "cellphone" , target = "cellphone"),

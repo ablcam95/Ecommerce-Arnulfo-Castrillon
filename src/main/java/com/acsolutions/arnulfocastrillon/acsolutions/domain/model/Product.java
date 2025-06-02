@@ -14,6 +14,9 @@ public class Product {
     private Integer id;
     private String name;
     private String code;
+    private String capacidad;
+    private String tipo;
+    private Boolean jacuzzi;
     private String description;
     private String urlImage;
     private BigDecimal price;

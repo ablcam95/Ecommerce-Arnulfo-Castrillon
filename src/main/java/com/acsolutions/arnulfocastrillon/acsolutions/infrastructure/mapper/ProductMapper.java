@@ -16,6 +16,9 @@ public interface ProductMapper {
                     @Mapping(source = "id" , target = "id"),
                     @Mapping(source = "name" , target = "name"),
                     @Mapping(source = "code" , target = "code"),
+                    @Mapping(source = "capacidad" , target = "capacidad"),
+                    @Mapping(source = "tipo" , target = "tipo"),
+                    @Mapping(source = "jacuzzi" , target = "jacuzzi"),
                     @Mapping(source = "description" , target = "description"),
                     @Mapping(source = "urlImage" , target = "urlImage"),
                     @Mapping(source = "price" , target = "price"),
@@ -28,6 +31,7 @@ public interface ProductMapper {
 
             }
     )
+
 
     Product toProduct(ProductEntity productEntity);
     Iterable<Product> toProductList(Iterable<ProductEntity> productEntities);

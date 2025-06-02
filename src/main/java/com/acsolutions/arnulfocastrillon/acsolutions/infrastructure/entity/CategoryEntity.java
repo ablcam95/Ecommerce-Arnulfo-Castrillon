@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 public class CategoryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(updatable = false)
     private Integer id;
     private String name;
     private boolean activo;

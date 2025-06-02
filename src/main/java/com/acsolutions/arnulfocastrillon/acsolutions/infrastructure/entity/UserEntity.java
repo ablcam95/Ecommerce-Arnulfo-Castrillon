@@ -20,8 +20,8 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String username;
-    private String firstnameName;
-    private String lastnameName;
+    private String firstName;
+    private String lastName;
     @Column(unique = true)
     private String email;
     private String address;
