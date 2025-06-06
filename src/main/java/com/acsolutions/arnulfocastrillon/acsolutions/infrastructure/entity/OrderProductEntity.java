@@ -1,5 +1,6 @@
 package com.acsolutions.arnulfocastrillon.acsolutions.infrastructure.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,5 +21,6 @@ public class OrderProductEntity {
     private BigDecimal price;
     private Integer productId;
     @ManyToOne
+    @JsonBackReference
     private OrderEntity orderEntity;
 }

@@ -21,7 +21,8 @@ public class UserService {
         return this.iUserRepository.findById(id);
     }
 
-    public User findByEmail(String email){ return this.iUserRepository.findByEmail(email);}
+    public User findByEmail(String email){
+        return this.iUserRepository.findByEmail(email);}
 
     public Iterable<User> findByActivoTrue() {
         return iUserRepository.findByActivoTrue();

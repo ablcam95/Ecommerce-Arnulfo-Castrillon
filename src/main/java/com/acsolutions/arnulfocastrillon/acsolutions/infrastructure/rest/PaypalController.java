@@ -13,7 +13,7 @@ import org.springframework.web.servlet.view.RedirectView;
 @RestController
 @AllArgsConstructor
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("api/v1/payments")
+@RequestMapping("/api/v1/payments")
 public class PaypalController {
 
     private final PaypalService paypalService;
@@ -23,26 +23,42 @@ public class PaypalController {
     @PostMapping
     public URLPaypalResponse createPayment(@RequestBody DataPayment dataPayment){
         try {
-            Payment payment = paypalService.createPayment(
-                Double.valueOf(dataPayment.getAmount()),
-                dataPayment.getCurrency(),
-                dataPayment.getMethod(),
-                "SALE",
-                dataPayment.getDescription(),
-                CANCEL_URL,
-                SUCCESS_URL
-            );
+            Payment payment;
+            if ("COP".equalsIgnoreCase(dataPayment.getCurrency())) {
+                // Si la moneda es COP, convierte a USD antes de enviar a PayPal
+                payment = paypalService.createPaymentFromCop(
+                        Double.valueOf(dataPayment.getAmount()),
+                        dataPayment.getMethod(),
+                        "SALE",
+                        dataPayment.getDescription(),
+                        SUCCESS_URL,
+                        CANCEL_URL
+                );
+            } else {
+                // Si ya viene en USD u otra moneda soportada por PayPal, no conviertas
+                payment = paypalService.createPayment(
+                        Double.valueOf(dataPayment.getAmount()),
+                        dataPayment.getCurrency(),
+                        dataPayment.getMethod(),
+                        "SALE",
+                        dataPayment.getDescription(),
+                        SUCCESS_URL,
+                        CANCEL_URL
+                );
+            }
             for(Links links : payment.getLinks()){
                 if(links.getRel().equals("approval_url")){
                     return new URLPaypalResponse(links.getHref());
                 }
             }
         } catch (PayPalRESTException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+
         }
 
-        return new URLPaypalResponse("");
+        return new URLPaypalResponse("http://localhost:4200");
     }
+
 
     @GetMapping("/success")
     public RedirectView paymentSuccess(
@@ -53,11 +69,13 @@ public class PaypalController {
             Payment payment = paypalService.executePayment(paymentId,payerId);
             if(payment.getState().equals("approved")){
                 return new RedirectView("http://localhost:4200/payment/success");
+
             }
         } catch (PayPalRESTException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+
         }
-        return null;
+        return new RedirectView("http://localhost:4200");
     }
 
     @GetMapping("/cancel")

@@ -2,6 +2,7 @@ package com.acsolutions.arnulfocastrillon.acsolutions.infrastructure.entity;
 
 
 import com.acsolutions.arnulfocastrillon.acsolutions.domain.model.OrderState;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,6 +28,7 @@ public class OrderEntity {
     @ManyToOne
     private UserEntity userEntity;
     @OneToMany(mappedBy = "orderEntity", cascade = CascadeType.PERSIST)
+    @JsonManagedReference
     private List<OrderProductEntity> orderProducts;
 
 }

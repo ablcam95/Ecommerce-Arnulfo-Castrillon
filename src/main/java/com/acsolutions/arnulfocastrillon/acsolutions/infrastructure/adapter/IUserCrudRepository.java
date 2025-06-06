@@ -8,7 +8,9 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 
 public interface IUserCrudRepository extends CrudRepository<UserEntity,Integer> {
 
@@ -28,7 +30,7 @@ public interface IUserCrudRepository extends CrudRepository<UserEntity,Integer> 
     @Query("UPDATE UserEntity u SET u.activo = true WHERE u.id = :id")
     void reactivateUser(@Param("id") Integer id);
 
-
+    Optional<UserEntity> findByEmail(String email);
 
 
 
