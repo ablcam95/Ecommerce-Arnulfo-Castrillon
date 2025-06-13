@@ -1,5 +1,7 @@
 package com.acsolutions.arnulfocastrillon.acsolutions.infrastructure.rest;
 
+import com.acsolutions.arnulfocastrillon.acsolutions.application.UserService;
+import com.acsolutions.arnulfocastrillon.acsolutions.domain.model.User;
 import com.acsolutions.arnulfocastrillon.acsolutions.infrastructure.dto.JWTClient;
 import com.acsolutions.arnulfocastrillon.acsolutions.infrastructure.dto.UserDTO;
 import com.acsolutions.arnulfocastrillon.acsolutions.infrastructure.jwt.JWTGenerator;
@@ -21,10 +23,12 @@ public class LoginController {
 
     private final AuthenticationManager authenticationManager;
     private final JWTGenerator jwtGenerator;
+    private final UserService userService;
 
-    public LoginController(AuthenticationManager authenticationManager, JWTGenerator jwtGenerator) {
+    public LoginController(AuthenticationManager authenticationManager, JWTGenerator jwtGenerator, UserService userService) {
         this.authenticationManager = authenticationManager;
         this.jwtGenerator = jwtGenerator;
+        this.userService = userService;
     }
 
     @PostMapping("/login")
@@ -38,9 +42,12 @@ public class LoginController {
         log.info("el Rol de User : {}",SecurityContextHolder.getContext().getAuthentication().getAuthorities()
                 .stream().findFirst().get().toString());
 
+        User user = userService.findByEmail(userDTO.username());
+
+
         String token = jwtGenerator.getToken(userDTO.username());
 
-        JWTClient jwtClient = new JWTClient(token);
+        JWTClient jwtClient = new JWTClient(user.getId(),token, user.getUserType().toString());
 
         return new ResponseEntity<>(jwtClient, HttpStatus.OK);
     }
